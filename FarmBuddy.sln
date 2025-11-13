@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14D7DA9F-2080-47A1-8FAB-3557C8070B3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{96CFC69C-10DD-47E7-BD67-1BEC4146B538}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Api", "src\FarmBuddy.Api\FarmBuddy.Api.csproj", "{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAA9F47E-13DB-417F-B5D5-14B27B55A695}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		src\.dockerignore = src\.dockerignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Service", "src\FarmBuddy.Service\FarmBuddy.Service.csproj", "{999BAD29-4983-4134-85B2-6BBA477409D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Repository", "src\FarmBuddy.Repository\FarmBuddy.Repository.csproj", "{412A27F0-C210-4592-983F-B99226AA34B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Common", "src\FarmBuddy.Common\FarmBuddy.Common.csproj", "{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Api.Tests", "tests\FarmBuddy.Api.Tests\FarmBuddy.Api.Tests.csproj", "{C2D718C4-7C1A-469F-A32E-8E5674F7B442}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
+		{999BAD29-4983-4134-85B2-6BBA477409D8} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
+		{412A27F0-C210-4592-983F-B99226AA34B8} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
+		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
+		{C2D718C4-7C1A-469F-A32E-8E5674F7B442} = {96CFC69C-10DD-47E7-BD67-1BEC4146B538}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{999BAD29-4983-4134-85B2-6BBA477409D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{999BAD29-4983-4134-85B2-6BBA477409D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{999BAD29-4983-4134-85B2-6BBA477409D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{999BAD29-4983-4134-85B2-6BBA477409D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412A27F0-C210-4592-983F-B99226AA34B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{412A27F0-C210-4592-983F-B99226AA34B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{412A27F0-C210-4592-983F-B99226AA34B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{412A27F0-C210-4592-983F-B99226AA34B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
