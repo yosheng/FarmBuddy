@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
 		src\.dockerignore = src\.dockerignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Service", "src\FarmBuddy.Service\FarmBuddy.Service.csproj", "{999BAD29-4983-4134-85B2-6BBA477409D8}"
@@ -19,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Common", "src\FarmBuddy.Common\FarmBuddy.Common.csproj", "{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Api.Tests", "tests\FarmBuddy.Api.Tests\FarmBuddy.Api.Tests.csproj", "{C2D718C4-7C1A-469F-A32E-8E5674F7B442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBuddy.Service.Tests", "tests\FarmBuddy.Service.Tests\FarmBuddy.Service.Tests.csproj", "{41772E11-FA4D-4A37-9E43-493165B49C7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +34,7 @@ Global
 		{412A27F0-C210-4592-983F-B99226AA34B8} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
 		{41CDCE3F-6082-44BB-A5A0-FDC438C6BFD1} = {14D7DA9F-2080-47A1-8FAB-3557C8070B3D}
 		{C2D718C4-7C1A-469F-A32E-8E5674F7B442} = {96CFC69C-10DD-47E7-BD67-1BEC4146B538}
+		{41772E11-FA4D-4A37-9E43-493165B49C7F} = {96CFC69C-10DD-47E7-BD67-1BEC4146B538}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9864D0E1-D66E-4E07-8CDC-80C84E994AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -53,5 +57,9 @@ Global
 		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D718C4-7C1A-469F-A32E-8E5674F7B442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41772E11-FA4D-4A37-9E43-493165B49C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41772E11-FA4D-4A37-9E43-493165B49C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41772E11-FA4D-4A37-9E43-493165B49C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41772E11-FA4D-4A37-9E43-493165B49C7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
