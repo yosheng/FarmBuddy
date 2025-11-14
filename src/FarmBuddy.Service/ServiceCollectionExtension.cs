@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using FarmBuddy.Service.ThirdApi;
+using FarmBuddy.Service.ThirdApi.Cwa;
 using Microsoft.Extensions.Configuration;
 using Refit;
 

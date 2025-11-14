@@ -1,4 +1,4 @@
-namespace FarmBuddy.Service.ThirdApi;
+namespace FarmBuddy.Service.ThirdApi.Cwa;
 
 /// <summary>
 /// DelegatingHandler for adding Authorization header to CWA API requests

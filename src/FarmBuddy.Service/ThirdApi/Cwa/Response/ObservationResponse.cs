@@ -1,4 +1,4 @@
-﻿namespace FarmBuddy.Service.ThirdApi.Cwa;
+﻿namespace FarmBuddy.Service.ThirdApi.Cwa.Response;
 
 public class ObservationResponse : CwaBaseResponse
 {

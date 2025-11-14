@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FarmBuddy.Service.ThirdApi.Cwa;
+namespace FarmBuddy.Service.ThirdApi.Cwa.Response;
 
 public class CwaBaseResponse
 {

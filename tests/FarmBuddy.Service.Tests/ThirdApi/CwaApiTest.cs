@@ -12,10 +12,18 @@ public class CwaApiTest
     }
 
     [Fact]
-    public async Task GetCwaDataAsync()
+    public async Task GetChanghua3DayForecastAsyncTest()
     {
-        var changhua3DayForecast = await _cwaApi.GetGeneralWeatherForecastAsync();
+        var changhua3DayForecast = await _cwaApi.GetChanghua3DayForecastAsync();
         
         Assert.NotNull(changhua3DayForecast);
+    }
+    
+    [Fact]
+    public async Task GetGeneralWeatherForecastAsync()
+    {
+        var generalWeatherForecast = await _cwaApi.GetGeneralWeatherForecastAsync();
+        
+        Assert.NotNull(generalWeatherForecast);
     }
 }
