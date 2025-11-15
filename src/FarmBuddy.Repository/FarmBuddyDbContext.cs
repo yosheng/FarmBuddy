@@ -16,7 +16,9 @@ public class FarmBuddyDbContext : DbContext
 
         modelBuilder.Entity<SystemSetting>().HasData(
             new SystemSetting { Id = 1, Key = "Endpoint:CwaApi", Value = "https://opendata.cwa.gov.tw/api" },
-            new SystemSetting { Id = 2, Key = "Endpoint:CwaApiKey", Value = "氣象開放資料平台會員授權碼" }
+            new SystemSetting { Id = 2, Key = "Endpoint:CwaApiKey", Value = "氣象開放資料平台會員授權碼" },
+            new SystemSetting { Id = 3, Key = "OpenAIOption:ChatModelId", Value = "gpt-4" },
+            new SystemSetting { Id = 4, Key = "OpenAIOption:ApiKey", Value = "YOUR_API_KEY" }
         );
     }
 }

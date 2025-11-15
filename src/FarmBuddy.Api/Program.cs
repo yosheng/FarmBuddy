@@ -33,6 +33,7 @@ builder.Services.AddDbContext<FarmBuddyDbContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionString"])
 );
 
+builder.Services.AddOpenAiConfiguration(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();

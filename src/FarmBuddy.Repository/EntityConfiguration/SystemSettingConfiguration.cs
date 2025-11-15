@@ -21,7 +21,7 @@ public class SystemSettingConfiguration : IEntityTypeConfiguration<SystemSetting
 
         builder.Property(x => x.Value)
             .HasComment("配置值")
-            .HasMaxLength(100)
+            .HasMaxLength(500)
             .IsRequired();
 
         builder.Property(x => x.Description)

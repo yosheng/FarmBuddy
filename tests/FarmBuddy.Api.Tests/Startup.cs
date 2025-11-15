@@ -60,6 +60,7 @@ public class Startup
                     options.UseSqlServer(context.Configuration["ConnectionString"])
                 );
 
+                services.AddOpenAiConfiguration(context.Configuration);
                 services.AddServices(context.Configuration);
             });
     }
