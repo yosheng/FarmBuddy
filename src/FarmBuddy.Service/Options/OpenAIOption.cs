@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FarmBuddy.Api.Options;
+namespace FarmBuddy.Service.Options;
 
 public class OpenAIOption
 {
