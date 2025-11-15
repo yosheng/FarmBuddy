@@ -28,7 +28,7 @@ public class ChatService : IChatService
 
         OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
         {
-            // ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
         };
         
         // Get the response from the AI
