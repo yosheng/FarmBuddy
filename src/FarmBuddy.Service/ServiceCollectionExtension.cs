@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FarmBuddy.Service.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using FarmBuddy.Service.ThirdApi;
 using FarmBuddy.Service.ThirdApi.Cwa;
@@ -11,6 +12,9 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
+        serviceCollection.AddOptions<LineConfig>()
+            .Bind(configuration.GetSection(nameof(LineConfig)));
+        
         var assembly = typeof(ServiceCollectionExtension).Assembly;
         var types = assembly
             .GetTypes()

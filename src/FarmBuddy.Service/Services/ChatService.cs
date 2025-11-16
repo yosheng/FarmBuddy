@@ -1,4 +1,5 @@
-﻿using Microsoft.SemanticKernel;
+﻿using LineMessaging;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
@@ -6,7 +7,7 @@ namespace FarmBuddy.Service.Services;
 
 public interface IChatService
 {
-    Task<string> GetChatResult();
+    Task<string> GetLineChatResult(LineWebhookContent lineWebhookContent);
 }
 
 public class ChatService : IChatService
@@ -18,20 +19,18 @@ public class ChatService : IChatService
         _kernel = kernel;
     }
 
-    public async Task<string> GetChatResult()
+    public async Task<string> GetLineChatResult(LineWebhookContent lineWebhookContent)
     {
         var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
 
-        // Create a history store the conversation
         var history = new ChatHistory();
-        history.AddUserMessage("請你查詢明天臺灣各縣市天氣預報資料及國際都市天氣預報");
+        history.AddUserMessage(lineWebhookContent.Events.First().Message.Text);
 
         OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
         {
-            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
         };
-        
-        // Get the response from the AI
+
         var result = await chatCompletionService.GetChatMessageContentAsync(
             history,
             openAIPromptExecutionSettings,

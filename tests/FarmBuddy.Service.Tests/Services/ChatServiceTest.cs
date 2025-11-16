@@ -1,4 +1,5 @@
 ﻿using FarmBuddy.Service.Services;
+using LineMessaging;
 
 namespace FarmBuddy.Service.Tests.Services;
 
@@ -16,7 +17,7 @@ public class ChatServiceTest
     [Fact]
     public async Task GetChatResultTest()
     {
-        var result = await _chatService.GetChatResult();
+        var result = await _chatService.GetLineChatResult(new LineWebhookContent());
         _testOutputHelper.WriteLine(result);
         Assert.NotNull(result);
     }
