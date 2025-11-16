@@ -38,6 +38,8 @@ public static class ServiceCollectionExtension
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["Endpoint:CwaApi"]!))
             .AddHttpMessageHandler<CwaAuthorizationHandler>();
 
+        serviceCollection.AddScoped<IKernelManager, KernelManager>();
+
         return serviceCollection;
     }
 }

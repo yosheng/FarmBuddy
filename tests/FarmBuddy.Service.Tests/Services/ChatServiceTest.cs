@@ -14,11 +14,5 @@ public class ChatServiceTest
         _testOutputHelper = testOutputHelper;
     }
     
-    [Fact]
-    public async Task GetChatResultTest()
-    {
-        var result = await _chatService.GetLineChatResult(new LineWebhookContent());
-        _testOutputHelper.WriteLine(result);
-        Assert.NotNull(result);
-    }
+
 }

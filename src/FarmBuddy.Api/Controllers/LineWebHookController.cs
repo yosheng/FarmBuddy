@@ -46,7 +46,7 @@ public class LineWebHookController : Controller
         }
 
         // 處理Webhook事件
-        await _chatService.GetLineChatResult(content);
+        await _chatService.ReplyLineChatMessageAsync(content);
 
         return Ok();
     }
