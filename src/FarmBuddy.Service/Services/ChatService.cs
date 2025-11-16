@@ -23,6 +23,11 @@ public class ChatService : IChatService
     {
         var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
 
+        if (!lineWebhookContent.Events.Any())
+        {
+            return "OK";
+        }
+
         var history = new ChatHistory();
         history.AddUserMessage(lineWebhookContent.Events.First().Message.Text);
 
