@@ -3,6 +3,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using FarmBuddy.Service.Options;
+using Microsoft.ML.Tokenizers;
 
 namespace FarmBuddy.Service.Handlers;
 
@@ -29,7 +30,7 @@ public class GeminiModelHandler : IAiModelHandler
 
     public int CalculateTokens(string text)
     {
-        // TODO: 实现 Gemini 特定的 Token 计算逻辑
-        throw new NotImplementedException("Gemini Token 计算功能尚未实现");
+        var tokenizer = TiktokenTokenizer.CreateForModel(_geminiOption.ChatModelId);
+        return tokenizer.CountTokens(text);
     }
 }
