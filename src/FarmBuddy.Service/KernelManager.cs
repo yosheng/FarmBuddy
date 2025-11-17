@@ -1,10 +1,8 @@
-﻿using FarmBuddy.Common.Enums;
+﻿using FarmBuddy.Service.Handlers;
 using FarmBuddy.Service.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.Google;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace FarmBuddy.Service;
 
@@ -17,30 +15,20 @@ public class KernelManager : IKernelManager
 {
     private readonly Kernel _kernel;
     private readonly IOptions<KernelConfig> _kernelConfig;
+    private readonly IAiModelHandler _modelHandler;
 
-    public KernelManager(Kernel kernel, IOptions<KernelConfig> kernelConfig)
+    public KernelManager(Kernel kernel, IOptions<KernelConfig> kernelConfig, IAiModelHandler modelHandler)
     {
         _kernel = kernel;
         _kernelConfig = kernelConfig;
+        _modelHandler = modelHandler;
     }
 
     public async Task<ChatMessageContent> GetChatMessageContentAsync(string userMessage)
     {
         var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
+        var promptExecutionSettings = _modelHandler.GetPromptExecutionSettings();
 
-        PromptExecutionSettings promptExecutionSettings = _kernelConfig.Value.AiModelType switch
-        {
-            AiModelType.OpenAI => new OpenAIPromptExecutionSettings()
-            {
-                ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-            },
-            AiModelType.Gemini => new GeminiPromptExecutionSettings()
-            {
-                ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions
-            },
-            _ => new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions, }
-        };
-        
         var history = new ChatHistory();
         history.AddSystemMessage(_kernelConfig.Value.SystemMessage);
         history.AddAssistantMessage(_kernelConfig.Value.AssistantMessage);
