@@ -51,10 +51,7 @@ public class ChatService : IChatService
             _logger.LogInformation($"Received user message: {userMessage}, ReplyToken: {replyToken}");
 
             // 調用AI獲取回應
-            var history = new ChatHistory();
-            history.AddUserMessage(userMessage);
-
-            var chatContent = await _kernelManager.GetChatMessageContentAsync(history);
+            var chatContent = await _kernelManager.GetChatMessageContentAsync(userMessage);
             var aiResponse = chatContent.Content;
 
             _logger.LogInformation($"AI response: {aiResponse}");
