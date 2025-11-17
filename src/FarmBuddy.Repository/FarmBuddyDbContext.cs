@@ -25,9 +25,11 @@ public class FarmBuddyDbContext : DbContext
             new SystemSetting { Id = 4, Key = "OpenAIOption:ApiKey", Value = "YOUR_API_KEY" },
             new SystemSetting { Id = 5, Key = "GeminiOption:ChatModelId", Value = "gemini-2.5-flash" },
             new SystemSetting { Id = 6, Key = "GeminiOption:ApiKey", Value = "YOUR_API_KEY" },
-            new SystemSetting { Id = 7, Key = "AiModelType", Value = "0", Description = $"AI類型: {aiModelTypeDescription}"},
+            new SystemSetting { Id = 7, Key = "KernelConfig:AiModelType", Value = "0", Description = $"AI類型: {aiModelTypeDescription}"},
             new SystemSetting { Id = 8, Key = "LineConfig:ChannelId", Value = "YOUR_CHANNEL_ID" },
-            new SystemSetting { Id = 9, Key = "LineConfig:ChannelSecret", Value = "YOUR_CHANNEL_SECRET" }
+            new SystemSetting { Id = 9, Key = "LineConfig:ChannelSecret", Value = "YOUR_CHANNEL_SECRET" },
+            new SystemSetting { Id = 10, Key = "KernelConfig:SystemMessage", Value = "YOUR_SystemMessage", Description = "系統提示詞"},
+            new SystemSetting { Id = 11, Key = "KernelConfig:AssistantMessage", Value = "YOUR_AssistantMessage", Description = "助手提示詞"}
         );
     }
 

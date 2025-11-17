@@ -15,6 +15,9 @@ public static class SemanticKernelExtension
 {
     public static IServiceCollection AddOpenAiConfiguration(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
+        serviceCollection.AddOptions<KernelConfig>()
+            .Bind(configuration.GetSection(nameof(KernelConfig)));
+        
         serviceCollection.AddOptions<OpenAIOption>()
             .Bind(configuration.GetSection(nameof(OpenAIOption)));
         
@@ -25,12 +28,9 @@ public static class SemanticKernelExtension
         {
             var openAIOption = sp.GetRequiredService<IOptions<OpenAIOption>>().Value;
             var geminiOption = sp.GetRequiredService<IOptions<GeminiOption>>().Value;
-
-            // 根據配置選擇使用的模型
-            var aiModelTypeStr = configuration["AiModelType"] ?? "0";
-            var aiModelType = Enum.Parse<AiModelType>(aiModelTypeStr);
-
-            return aiModelType switch
+            var kernelConfig = sp.GetRequiredService<IOptions<KernelConfig>>().Value;
+            
+            return kernelConfig.AiModelType switch
             {
                 AiModelType.OpenAI => new OpenAIChatCompletionService(openAIOption.ChatModelId, openAIOption.ApiKey),
                 AiModelType.Gemini => new GoogleAIGeminiChatCompletionService(geminiOption.ChatModelId, geminiOption.ApiKey),
