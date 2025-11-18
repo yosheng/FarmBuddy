@@ -47,11 +47,12 @@ public class ChatService : IChatService
 
             var userMessage = firstEvent.Message.Text;
             var replyToken = firstEvent.ReplyToken;
+            var userId = firstEvent.Source.UserId;
 
             _logger.LogInformation($"Received user message: {userMessage}, ReplyToken: {replyToken}");
 
             // 調用AI獲取回應
-            var chatContent = await _kernelManager.GetChatMessageContentAsync(userMessage);
+            var chatContent = await _kernelManager.GetChatMessageContentAsync(userId, userMessage);
             var aiResponse = chatContent.Content;
 
             _logger.LogInformation($"AI response: {aiResponse}");

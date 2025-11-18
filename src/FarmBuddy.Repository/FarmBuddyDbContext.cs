@@ -9,6 +9,8 @@ public class FarmBuddyDbContext : DbContext
     public FarmBuddyDbContext(DbContextOptions options) : base(options)
     {
     }
+
+    public DbSet<ChatMessage> ChatMessages { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
