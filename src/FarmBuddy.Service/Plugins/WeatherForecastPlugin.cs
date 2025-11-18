@@ -28,6 +28,22 @@ public class WeatherForecastPlugin
         return optimizedForecasts;
     }
 
+    [KernelFunction("get_weather_by_location")]
+    [Description("查詢指定台灣縣市的天氣預報。必須提供明確的縣市名稱（如：台北市、台中市、高雄市等）")]
+    public async Task<OptimizedWeatherForecast?> GetWeatherByLocationAsync(
+        [Description("台灣縣市名稱，例如：台北市、台中市、高雄市、桃園市等")] string locationName)
+    {
+        if (string.IsNullOrWhiteSpace(locationName))
+        {
+            return null;
+        }
+
+        var response = await _cwaApi.GetGeneralWeatherForecastAsync(locationName: locationName);
+        var forecast = response.Records.Location.FirstOrDefault();
+
+        return forecast != null ? TransformLocationToOptimized(forecast) : null;
+    }
+
     /// <summary>
     /// 将原始Location数据转换为按时间维度优化的预报数据
     /// </summary>
