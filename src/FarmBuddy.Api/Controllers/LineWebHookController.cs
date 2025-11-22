@@ -3,14 +3,17 @@ using System.Text;
 using FarmBuddy.Service.Options;
 using FarmBuddy.Service.Services;
 using LineMessaging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace FarmBuddy.Api.Controllers;
 
+[AllowAnonymous]
 [Route("api/[controller]")]
-public class LineWebHookController : Controller
+[ApiController]
+public class LineWebHookController : ControllerBase
 {
     private readonly IChatService _chatService;
     private readonly IOptions<LineConfig> _lineConfig;

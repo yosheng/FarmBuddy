@@ -4,6 +4,7 @@ using FarmBuddy.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmBuddy.Repository.Migrations
 {
     [DbContext(typeof(FarmBuddyDbContext))]
-    partial class FarmBuddyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251122155400_AddBackendAccount")]
+    partial class AddBackendAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,27 +218,6 @@ namespace FarmBuddy.Repository.Migrations
                             Description = "助手提示詞",
                             Key = "KernelConfig:AssistantMessage",
                             Value = "YOUR_AssistantMessage"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "JWT頒發者",
-                            Key = "JwtConfig:Issuer",
-                            Value = "farm-buddy-api"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Description = "JWT客戶端",
-                            Key = "JwtConfig:Audience",
-                            Value = "farm-buddy-api"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Description = "JWT密鑰",
-                            Key = "JwtConfig:Key",
-                            Value = "u5w/8x+A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8="
                         });
                 });
 #pragma warning restore 612, 618

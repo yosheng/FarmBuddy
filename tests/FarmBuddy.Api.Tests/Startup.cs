@@ -1,5 +1,6 @@
 using DotNetEnv;
 using FarmBuddy.Api.SystemSetting;
+using FarmBuddy.Common.Authentication;
 using FarmBuddy.Repository;
 using FarmBuddy.Service;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,7 @@ public class Startup
 
                 services.AddOpenAiConfiguration(context.Configuration);
                 services.AddServices(context.Configuration);
+                services.AddJwtAuthentication(context.Configuration);
             });
     }
 }

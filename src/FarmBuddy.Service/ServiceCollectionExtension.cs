@@ -1,8 +1,11 @@
-﻿using FarmBuddy.Service.Options;
+﻿using FarmBuddy.Common.Authentication;
+using FarmBuddy.Common.Entities;
+using FarmBuddy.Service.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using FarmBuddy.Service.ThirdApi;
 using FarmBuddy.Service.ThirdApi.Cwa;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Refit;
 
@@ -38,6 +41,10 @@ public static class ServiceCollectionExtension
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["Endpoint:CwaApi"]!))
             .AddHttpMessageHandler<CwaAuthorizationHandler>();
 
+        serviceCollection.AddAutoMapper((cfg) => { }, typeof(ServiceCollectionExtension).Assembly);
+
+        serviceCollection.AddScoped<IPasswordHasher<BackendAccount>, PasswordHasher<BackendAccount>>();
+        
         serviceCollection.AddScoped<IKernelManager, KernelManager>();
 
         return serviceCollection;

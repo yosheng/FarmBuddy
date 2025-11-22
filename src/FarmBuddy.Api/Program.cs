@@ -1,6 +1,9 @@
 using FarmBuddy.Api;
+using FarmBuddy.Common.Authentication;
 using FarmBuddy.Repository;
 using FarmBuddy.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -8,9 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddSystemSettingConfiguration();
 
-// Add services to the container.
+builder.Services.AddControllers(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
 
-builder.Services.AddControllers();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -27,6 +35,33 @@ builder.Services.AddSwaggerGen(options =>
     {
         options.IncludeXmlComments(file, true);
     });
+    
+    // 定義安全傳輸方案
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "請直接輸入您的 JWT Token (不需要輸入 'Bearer ' 前綴，Swagger 會自動加上)"
+    });
+
+    // 定義安全需求
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer" // 對應上面的 Definition Name
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 
 builder.Services.AddDbContext<FarmBuddyDbContext>(options =>
@@ -35,6 +70,9 @@ builder.Services.AddDbContext<FarmBuddyDbContext>(options =>
 
 builder.Services.AddOpenAiConfiguration(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
@@ -49,14 +87,17 @@ using (var scope = app.Services.CreateScope())
         dbContext.Database.Migrate();
 
         Console.WriteLine("Database migrations applied successfully.");
+        
+        // 從 Scope 中獲取 Seeder
+        var seeder = services.GetRequiredService<DataSeeder>();
+        
+        // 執行初始化
+        await seeder.SeedAsync();
     }
     catch (Exception ex)
     {
-        // 處理遷移過程中可能發生的錯誤
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while applying database migrations.");
-        // 在生產環境中，您可能需要更完善的錯誤處理機制
-        // 例如：發送警報、重試或優雅地停止應用程式
+        logger.LogError(ex, "An error occurred while initial database.");
     }
 }
 

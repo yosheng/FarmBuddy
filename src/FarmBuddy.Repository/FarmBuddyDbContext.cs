@@ -11,7 +11,9 @@ public class FarmBuddyDbContext : DbContext
     }
 
     public DbSet<ChatMessage> ChatMessages { get; set; }
-    
+
+    public DbSet<BackendAccount> BackendAccounts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -27,11 +29,30 @@ public class FarmBuddyDbContext : DbContext
             new SystemSetting { Id = 4, Key = "OpenAIOption:ApiKey", Value = "YOUR_API_KEY" },
             new SystemSetting { Id = 5, Key = "GeminiOption:ChatModelId", Value = "gemini-2.5-flash" },
             new SystemSetting { Id = 6, Key = "GeminiOption:ApiKey", Value = "YOUR_API_KEY" },
-            new SystemSetting { Id = 7, Key = "KernelConfig:AiModelType", Value = "0", Description = $"AI類型: {aiModelTypeDescription}"},
+            new SystemSetting
+            {
+                Id = 7, Key = "KernelConfig:AiModelType", Value = "0", Description = $"AI類型: {aiModelTypeDescription}"
+            },
             new SystemSetting { Id = 8, Key = "LineConfig:ChannelId", Value = "YOUR_CHANNEL_ID" },
             new SystemSetting { Id = 9, Key = "LineConfig:ChannelSecret", Value = "YOUR_CHANNEL_SECRET" },
-            new SystemSetting { Id = 10, Key = "KernelConfig:SystemMessage", Value = "YOUR_SystemMessage", Description = "系統提示詞"},
-            new SystemSetting { Id = 11, Key = "KernelConfig:AssistantMessage", Value = "YOUR_AssistantMessage", Description = "助手提示詞"}
+            new SystemSetting
+                { Id = 10, Key = "KernelConfig:SystemMessage", Value = "YOUR_SystemMessage", Description = "系統提示詞" },
+            new SystemSetting
+            {
+                Id = 11, Key = "KernelConfig:AssistantMessage", Value = "YOUR_AssistantMessage", Description = "助手提示詞"
+            },
+            new SystemSetting
+            {
+                Id = 12, Key = "JwtConfig:Issuer", Value = "farm-buddy-api", Description = "JWT頒發者"
+            },
+            new SystemSetting
+            {
+                Id = 13, Key = "JwtConfig:Audience", Value = "farm-buddy-api", Description = "JWT客戶端"
+            },
+            new SystemSetting
+            {
+                Id = 14, Key = "JwtConfig:Key", Value = "u5w/8x+A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8=", Description = "JWT密鑰"
+            }
         );
     }
 
