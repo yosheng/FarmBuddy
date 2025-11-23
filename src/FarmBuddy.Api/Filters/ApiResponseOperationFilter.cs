@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using System.Reflection;
-using FarmBuddy.Common.Response;
+using FarmBuddy.Common;
+using FarmBuddy.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;

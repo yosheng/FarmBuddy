@@ -1,4 +1,4 @@
-using FarmBuddy.Common.Response;
+using FarmBuddy.Common.Models;
 
 namespace FarmBuddy.Common.Exceptions;
 

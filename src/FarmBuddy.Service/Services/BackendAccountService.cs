@@ -2,7 +2,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FarmBuddy.Common.Entities;
 using FarmBuddy.Common.Exceptions;
-using FarmBuddy.Common.Response;
+using FarmBuddy.Common.Models;
 using FarmBuddy.Repository;
 using FarmBuddy.Service.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ namespace FarmBuddy.Service.Services;
 public interface IBackendAccountService
 {
     Task<BackendAccountDto?> GetByIdAsync(int id);
-    Task<List<BackendAccountDto>> GetAllAsync();
+    Task<PagingResult<BackendAccountDto>> GetPagingAsync(QueryBackendAccountDto input);
     Task<BackendAccountDto> CreateAsync(CreateBackendAccountInputDto input);
     Task<BackendAccountDto> UpdateAsync(int id, UpdateBackendAccountInputDto input);
     Task DeleteAsync(int id);
@@ -37,11 +37,17 @@ public class BackendAccountService : IBackendAccountService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<List<BackendAccountDto>> GetAllAsync()
+    public async Task<PagingResult<BackendAccountDto>> GetPagingAsync(QueryBackendAccountDto input)
     {
-        return await _dbContext.BackendAccounts
+        var query = _dbContext.BackendAccounts
+            .WhereIf(!string.IsNullOrWhiteSpace(input.DisplayName),
+                x => x.DisplayName!.Contains(input.DisplayName!))
+            .WhereIf(!string.IsNullOrWhiteSpace(input.Username), 
+                x => x.Username.Contains(input.Username!));
+
+        return await query
             .ProjectTo<BackendAccountDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ToPagingResultAsync(input);
     }
 
     public async Task<BackendAccountDto> CreateAsync(CreateBackendAccountInputDto input)
@@ -66,7 +72,7 @@ public class BackendAccountService : IBackendAccountService
         var account = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Id == id);
         if (account == null)
         {
-            throw new BusinessException(ErrorCode.NotFound ,$"Backend account with id {id} not found");
+            throw new BusinessException(ErrorCode.NotFound, $"Backend account with id {id} not found");
         }
 
         if (input.DisplayName != null)
@@ -90,7 +96,7 @@ public class BackendAccountService : IBackendAccountService
         var account = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Id == id);
         if (account == null)
         {
-            throw new BusinessException(ErrorCode.NotFound ,$"Backend account with id {id} not found");
+            throw new BusinessException(ErrorCode.NotFound, $"Backend account with id {id} not found");
         }
 
         _dbContext.BackendAccounts.Remove(account);

@@ -1,3 +1,5 @@
+using FarmBuddy.Common.Models;
+
 namespace FarmBuddy.Service.Dtos;
 
 /// <summary>
@@ -38,6 +40,12 @@ public class BackendAccountDto
     public DateTime? LastLoginTime { get; set; }
 
     public DateTime CreateTime { get; set; }
+}
+
+public class QueryBackendAccountDto : PagingQueryBase
+{
+    public string? DisplayName { get; set; }
+    public string? Username { get; set; }
 }
 
 /// <summary>

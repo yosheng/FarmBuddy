@@ -1,6 +1,7 @@
 using System.Net.Mime;
+using FarmBuddy.Common;
 using FarmBuddy.Common.Exceptions;
-using FarmBuddy.Common.Response;
+using FarmBuddy.Common.Models;
 
 namespace FarmBuddy.Api.Middleware;
 

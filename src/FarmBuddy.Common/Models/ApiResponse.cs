@@ -1,4 +1,4 @@
-namespace FarmBuddy.Common.Response;
+namespace FarmBuddy.Common.Models;
 
 /// <summary>
 /// 错误代码枚举

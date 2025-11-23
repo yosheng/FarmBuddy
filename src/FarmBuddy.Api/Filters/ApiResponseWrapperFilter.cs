@@ -1,4 +1,5 @@
-using FarmBuddy.Common.Response;
+using FarmBuddy.Common;
+using FarmBuddy.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
