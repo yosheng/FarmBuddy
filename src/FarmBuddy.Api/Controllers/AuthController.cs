@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FarmBuddy.Api.Controllers;
 
-[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
@@ -20,6 +19,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// 使用帳號密碼登入
     /// </summary>
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<LoginOutputDto>> Login([FromBody] LoginInputDto input)
     {
@@ -30,6 +30,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// 刷新Token
     /// </summary>
+    [AllowAnonymous]
     [HttpPost("refresh")]
     public async Task<ActionResult<RefreshTokenOutputDto>> Refresh([FromBody] RefreshTokenInputDto input)
     {

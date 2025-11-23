@@ -55,20 +55,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 
     // 定義安全需求
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer" // 對應上面的 Definition Name
-                }
-            },
-            new string[] {}
-        }
-    });
+    options.OperationFilter<SecurityOperationFilter>();
 });
 
 builder.Services.AddDbContext<FarmBuddyDbContext>(options =>
