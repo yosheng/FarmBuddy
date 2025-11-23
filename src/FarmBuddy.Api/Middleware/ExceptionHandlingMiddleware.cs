@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using FarmBuddy.Common.Exceptions;
 using FarmBuddy.Common.Response;
 
@@ -32,7 +33,7 @@ public class ExceptionHandlingMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "application/json";
+        context.Response.ContentType = MediaTypeNames.Application.Json;
         context.Response.StatusCode = StatusCodes.Status200OK;
 
         ApiResponse response;

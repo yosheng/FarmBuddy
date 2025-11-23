@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using FarmBuddy.Api;
 using FarmBuddy.Api.Filters;
 using FarmBuddy.Api.Middleware;
@@ -5,6 +6,7 @@ using FarmBuddy.Common.Authentication;
 using FarmBuddy.Repository;
 using FarmBuddy.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -15,6 +17,7 @@ builder.Configuration.AddSystemSettingConfiguration();
 
 builder.Services.AddControllers(options =>
 {
+    options.Filters.Add(new ProducesAttribute(MediaTypeNames.Application.Json));
     var policy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
@@ -26,6 +29,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.OperationFilter<ApiResponseOperationFilter>();
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "FarmBuddy API",
