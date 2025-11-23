@@ -14,7 +14,7 @@ public class MoaApiTest
     [Fact]
     public async Task GetAgriProductsTransTypeAsyncTest()
     {
-        var agriProductsTransType = await _moaApi.GetAgriProductsTransTypeAsync(start_time: "114.11.23", end_time: "114.11.23");
+        var agriProductsTransType = await _moaApi.GetAgriProductsTransTypeAsync(start_time: "114.11.23", end_time: "114.11.23", cropName: "椰子");
         
         Assert.NotNull(agriProductsTransType);
     }

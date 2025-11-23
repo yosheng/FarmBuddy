@@ -35,8 +35,12 @@ public static class SemanticKernelExtension
         serviceCollection.AddSingleton<IChatCompletionService>(sp =>
             sp.GetRequiredService<IAiModelHandler>().GetChatCompletionService());
 
-        serviceCollection.AddSingleton<KernelPlugin>(sp =>
+        serviceCollection.AddSingleton(sp =>
             KernelPluginFactory.CreateFromType<WeatherForecastPlugin>(serviceProvider: sp));
+
+        serviceCollection.AddSingleton(sp =>
+            KernelPluginFactory.CreateFromType<AgriProductsTransPlugin>(serviceProvider: sp));
+
         serviceCollection.AddKernel();
 
         return serviceCollection;
