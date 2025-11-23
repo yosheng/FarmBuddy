@@ -21,10 +21,9 @@ public class AuthController : ControllerBase
     /// </summary>
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<ActionResult<LoginOutputDto>> Login([FromBody] LoginInputDto input)
+    public async Task<LoginOutputDto> Login([FromBody] LoginInputDto input)
     {
-        var result = await _authService.LoginAsync(input);
-        return Ok(result);
+        return await _authService.LoginAsync(input);
     }
 
     /// <summary>
@@ -32,9 +31,17 @@ public class AuthController : ControllerBase
     /// </summary>
     [AllowAnonymous]
     [HttpPost("refresh")]
-    public async Task<ActionResult<RefreshTokenOutputDto>> Refresh([FromBody] RefreshTokenInputDto input)
+    public async Task<RefreshTokenOutputDto> Refresh([FromBody] RefreshTokenInputDto input)
     {
-        var result = await _authService.RefreshTokenAsync(input);
-        return Ok(result);
+        return await _authService.RefreshTokenAsync(input);
+    }
+    
+    /// <summary>
+    /// 取得當前登入的使用者資訊
+    /// </summary>
+    [HttpGet("me")]
+    public async Task<BackendAccountDto> GetMe()
+    {
+        return await _authService.GetMeAsync();
     }
 }

@@ -3,6 +3,7 @@ using FarmBuddy.Api;
 using FarmBuddy.Api.Filters;
 using FarmBuddy.Api.Middleware;
 using FarmBuddy.Common.Authentication;
+using FarmBuddy.Common.Context;
 using FarmBuddy.Repository;
 using FarmBuddy.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +68,7 @@ builder.Services.AddServices(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddScoped<DataSeeder>();
+builder.Services.AddScoped<ApiRequestContext>();
 
 var app = builder.Build();
 
@@ -98,6 +100,9 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 // 异常处理必须最先注册，以捕获后续所有异常
 app.UseExceptionHandling();
+
+// JWT Token 解析，提取用户信息到 ApiRequestContext
+app.UseJwtTokenParsing();
 
 if (app.Environment.IsDevelopment())
 {
