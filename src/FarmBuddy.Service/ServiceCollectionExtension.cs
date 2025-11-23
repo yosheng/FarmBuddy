@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using FarmBuddy.Service.ThirdApi;
 using FarmBuddy.Service.ThirdApi.Cwa;
+using FarmBuddy.Service.ThirdApi.Moa;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Refit;
@@ -40,6 +41,14 @@ public static class ServiceCollectionExtension
             .AddRefitClient<ICwaApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["Endpoint:CwaApi"]!))
             .AddHttpMessageHandler<CwaAuthorizationHandler>();
+
+        serviceCollection.AddTransient<MoaAuthorizationHandler>(_ =>
+            new MoaAuthorizationHandler(configuration["Endpoint:MoaApiKey"]!));
+        
+        serviceCollection
+            .AddRefitClient<IMoaApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["Endpoint:MoaApi"]!))
+            .AddHttpMessageHandler<MoaAuthorizationHandler>();
 
         serviceCollection.AddAutoMapper((cfg) => { }, typeof(ServiceCollectionExtension).Assembly);
 

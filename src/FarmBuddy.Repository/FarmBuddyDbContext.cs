@@ -52,7 +52,9 @@ public class FarmBuddyDbContext : DbContext
             new SystemSetting
             {
                 Id = 14, Key = "JwtConfig:Key", Value = "u5w/8x+A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8=", Description = "JWT密鑰"
-            }
+            },
+            new SystemSetting() { Id = 15, Key = "Endpoint:MoaApiKey", Value = "農業開放資料平台會員授權碼" },
+            new SystemSetting() { Id = 16, Key = "Endpoint:MoaApi", Value = "https://data.moa.gov.tw/api/v1" }
         );
     }
 
