@@ -1,4 +1,6 @@
 using FarmBuddy.Api;
+using FarmBuddy.Api.Filters;
+using FarmBuddy.Api.Middleware;
 using FarmBuddy.Common.Authentication;
 using FarmBuddy.Repository;
 using FarmBuddy.Service;
@@ -18,6 +20,7 @@ builder.Services.AddControllers(options =>
         .Build();
 
     options.Filters.Add(new AuthorizeFilter(policy));
+    options.Filters.Add(new ApiResponseWrapperFilter());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -102,6 +105,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+// 异常处理必须最先注册，以捕获后续所有异常
+app.UseExceptionHandling();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

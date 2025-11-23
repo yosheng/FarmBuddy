@@ -1,6 +1,8 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FarmBuddy.Common.Entities;
+using FarmBuddy.Common.Exceptions;
+using FarmBuddy.Common.Response;
 using FarmBuddy.Repository;
 using FarmBuddy.Service.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -64,7 +66,7 @@ public class BackendAccountService : IBackendAccountService
         var account = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Id == id);
         if (account == null)
         {
-            throw new InvalidOperationException($"Backend account with id {id} not found");
+            throw new BusinessException(ErrorCode.NotFound ,$"Backend account with id {id} not found");
         }
 
         if (input.DisplayName != null)
@@ -88,7 +90,7 @@ public class BackendAccountService : IBackendAccountService
         var account = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Id == id);
         if (account == null)
         {
-            throw new InvalidOperationException($"Backend account with id {id} not found");
+            throw new BusinessException(ErrorCode.NotFound ,$"Backend account with id {id} not found");
         }
 
         _dbContext.BackendAccounts.Remove(account);

@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using FarmBuddy.Common.Authentication;
 using FarmBuddy.Common.Entities;
+using FarmBuddy.Common.Exceptions;
+using FarmBuddy.Common.Response;
 using FarmBuddy.Repository;
 using FarmBuddy.Service.Dtos;
 using Microsoft.AspNetCore.Identity;
@@ -36,13 +38,13 @@ public class AuthService : IAuthService
         var user = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Username == input.Username);
         if (user == null || user.IsActive == false)
         {
-            throw new UnauthorizedAccessException("Invalid username or password");
+            throw new BusinessException(ErrorCode.ValidationError ,"錯誤的帳號或密碼");
         }
 
         var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, input.Password);
         if (verificationResult == PasswordVerificationResult.Failed)
         {
-            throw new UnauthorizedAccessException("Invalid username or password");
+            throw new BusinessException(ErrorCode.ValidationError ,"錯誤的帳號或密碼");
         }
 
         var token = GenerateJwtToken(user);
@@ -63,13 +65,13 @@ public class AuthService : IAuthService
         var userId = ExtractUserIdFromToken(input.Token);
         if (userId == 0)
         {
-            throw new UnauthorizedAccessException("Invalid token");
+            throw new BusinessException(ErrorCode.Unauthorized ,"Invalid token");
         }
 
         var user = await _dbContext.BackendAccounts.FirstOrDefaultAsync(x => x.Id == userId);
         if (user == null || user.IsActive == false)
         {
-            throw new UnauthorizedAccessException("Invalid token or user inactive");
+            throw new BusinessException(ErrorCode.Unauthorized ,"Invalid token or user inactive");
         }
 
         var token = GenerateJwtToken(user);
