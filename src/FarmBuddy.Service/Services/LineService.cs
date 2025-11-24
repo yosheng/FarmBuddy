@@ -2,28 +2,25 @@
 using LineMessaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace FarmBuddy.Service.Services;
 
-public interface IChatService
+public interface ILineService
 {
     Task ReplyLineChatMessageAsync(LineWebhookContent lineWebhookContent);
 }
 
-public class ChatService : IChatService
+public class LineService : ILineService
 {
     private readonly IKernelManager _kernelManager;
     private readonly LineOAuthClient _oAuthClient;
-    private readonly IOptions<LineConfig> _lineConfig;
-    private readonly ILogger<ChatService> _logger;
+    private readonly ILogger<LineService> _logger;
 
-    public ChatService(IKernelManager kernelManager, IOptions<LineConfig> lineConfig, ILogger<ChatService> logger)
+    public LineService(IKernelManager kernelManager, IOptions<LineConfig> lineConfig, ILogger<LineService> logger)
     {
         _kernelManager = kernelManager;
-        _lineConfig = lineConfig;
         _logger = logger;
-        _oAuthClient = new LineOAuthClient(_lineConfig.Value.ChannelId, _lineConfig.Value.ChannelSecret);
+        _oAuthClient = new LineOAuthClient(lineConfig.Value.ChannelId, lineConfig.Value.ChannelSecret);
     }
 
     public async Task ReplyLineChatMessageAsync(LineWebhookContent lineWebhookContent)

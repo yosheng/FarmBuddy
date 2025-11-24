@@ -3,14 +3,14 @@ using LineMessaging;
 
 namespace FarmBuddy.Service.Tests.Services;
 
-public class ChatServiceTest
+public class LineServiceTest
 {
-    private readonly IChatService _chatService;
+    private readonly ILineService _lineService;
     private readonly ITestOutputHelper _testOutputHelper;
 
-    public ChatServiceTest(IChatService chatService, ITestOutputHelper testOutputHelper)
+    public LineServiceTest(ILineService lineService, ITestOutputHelper testOutputHelper)
     {
-        _chatService = chatService;
+        _lineService = lineService;
         _testOutputHelper = testOutputHelper;
     }
     

@@ -15,14 +15,14 @@ namespace FarmBuddy.Api.Controllers;
 [ApiController]
 public class LineWebHookController : ControllerBase
 {
-    private readonly IChatService _chatService;
+    private readonly ILineService _lineService;
     private readonly IOptions<LineConfig> _lineConfig;
     private readonly ILogger<LineWebHookController> _logger;
 
-    public LineWebHookController(IChatService chatService, IOptions<LineConfig> lineConfig,
+    public LineWebHookController(ILineService lineService, IOptions<LineConfig> lineConfig,
         ILogger<LineWebHookController> logger)
     {
-        _chatService = chatService;
+        _lineService = lineService;
         _lineConfig = lineConfig;
         _logger = logger;
     }
@@ -49,7 +49,7 @@ public class LineWebHookController : ControllerBase
         }
 
         // 處理Webhook事件
-        await _chatService.ReplyLineChatMessageAsync(content);
+        await _lineService.ReplyLineChatMessageAsync(content);
 
         return Ok();
     }
