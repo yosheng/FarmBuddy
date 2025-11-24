@@ -10,5 +10,8 @@ public class AutoMapperProfile : Profile
     {
         // BackendAccount mappings
         CreateMap<BackendAccount, BackendAccountDto>();
+
+        // ChatMessage mappings
+        CreateMap<ChatMessage, ChatMessageDto>();
     }
 }
