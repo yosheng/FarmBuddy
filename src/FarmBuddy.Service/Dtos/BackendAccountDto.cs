@@ -9,7 +9,7 @@ public class CreateBackendAccountInputDto
 {
     public string Username { get; set; }
 
-    public string PasswordHash { get; set; }
+    public string Password { get; set; }
 
     public string? DisplayName { get; set; }
 }
@@ -22,6 +22,8 @@ public class UpdateBackendAccountInputDto
     public string? DisplayName { get; set; }
 
     public bool? IsActive { get; set; }
+    
+    public string? Password { get; set; }
 }
 
 /// <summary>

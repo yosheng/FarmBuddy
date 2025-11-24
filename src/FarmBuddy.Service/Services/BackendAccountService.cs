@@ -5,6 +5,7 @@ using FarmBuddy.Common.Exceptions;
 using FarmBuddy.Common.Models;
 using FarmBuddy.Repository;
 using FarmBuddy.Service.Dtos;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmBuddy.Service.Services;
@@ -22,11 +23,14 @@ public class BackendAccountService : IBackendAccountService
 {
     private readonly FarmBuddyDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IPasswordHasher<BackendAccount> _passwordHasher;
 
-    public BackendAccountService(FarmBuddyDbContext dbContext, IMapper mapper)
+    public BackendAccountService(FarmBuddyDbContext dbContext, IMapper mapper,
+        IPasswordHasher<BackendAccount> passwordHasher)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _passwordHasher = passwordHasher;
     }
 
     public async Task<BackendAccountDto?> GetByIdAsync(int id)
@@ -42,7 +46,7 @@ public class BackendAccountService : IBackendAccountService
         var query = _dbContext.BackendAccounts
             .WhereIf(!string.IsNullOrWhiteSpace(input.DisplayName),
                 x => x.DisplayName!.Contains(input.DisplayName!))
-            .WhereIf(!string.IsNullOrWhiteSpace(input.Username), 
+            .WhereIf(!string.IsNullOrWhiteSpace(input.Username),
                 x => x.Username.Contains(input.Username!));
 
         return await query
@@ -55,11 +59,12 @@ public class BackendAccountService : IBackendAccountService
         var account = new BackendAccount
         {
             Username = input.Username,
-            PasswordHash = input.PasswordHash,
             DisplayName = input.DisplayName,
             IsActive = true,
             CreateTime = DateTime.UtcNow
         };
+
+        account.PasswordHash = _passwordHasher.HashPassword(account, input.Password);
 
         _dbContext.BackendAccounts.Add(account);
         await _dbContext.SaveChangesAsync();
@@ -83,6 +88,11 @@ public class BackendAccountService : IBackendAccountService
         if (input.IsActive.HasValue)
         {
             account.IsActive = input.IsActive.Value;
+        }
+        
+        if (input.Password != null)
+        {
+            account.PasswordHash = _passwordHasher.HashPassword(account, input.Password);
         }
 
         _dbContext.BackendAccounts.Update(account);
