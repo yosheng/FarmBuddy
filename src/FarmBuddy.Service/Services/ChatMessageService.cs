@@ -32,7 +32,7 @@ public class ChatMessageService : IChatMessageService
             .WhereIf(input.Role.HasValue,
                 x => x.Role == input.Role);
 
-        return await query
+        return await query.OrderByDescending(x => x.CreateTime)
             .ProjectTo<ChatMessageDto>(_mapper.ConfigurationProvider)
             .ToPagingResultAsync(input);
     }
