@@ -13,5 +13,7 @@ public class AutoMapperProfile : Profile
 
         // ChatMessage mappings
         CreateMap<ChatMessage, ChatMessageDto>();
+        
+        CreateMap<SystemSetting, SystemSettingDto>();
     }
 }

@@ -13,6 +13,8 @@ public class FarmBuddyDbContext : DbContext
     public DbSet<ChatMessage> ChatMessages { get; set; }
 
     public DbSet<BackendAccount> BackendAccounts { get; set; }
+    
+    public DbSet<SystemSetting> SystemSetting { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
